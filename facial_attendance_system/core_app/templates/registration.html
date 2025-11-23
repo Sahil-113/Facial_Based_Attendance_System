@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <title>Registration - Facial Attendance</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+  <header>
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <h2 style="margin:0">Registration</h2>
+      </div>
+      <nav>
+        <a class="btn btn-outline" href="{% url 'home' %}">Home</a>
+        <a class="btn btn-outline" href="{% url 'attendance' %}">Attendance</a>
+        <a class="btn btn-outline" href="/admin/">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <form id="registrationForm" onsubmit="event.preventDefault(); submitRegistration('registrationForm');">
+      {% csrf_token %}
+      <div class="form-row">
+        <label>User ID</label>
+        <input type="text" name="userid" required />
+      </div>
+      <div class="form-row">
+        <label>Name</label>
+        <input type="text" name="name" required />
+      </div>
+      <div class="form-row preview">
+        <div>
+          <video id="regVideo" autoplay muted playsinline></video>
+          <canvas id="regCanvas" style="display:none;"></canvas>
+        </div>
+        <div style="flex:1">
+          <button type="button" class="btn btn-primary" onclick="startRegCamera('regVideo')">Start Camera</button>
+          <button type="button" class="btn btn-outline" onclick="captureRegFrame('regVideo','regCanvas')">Capture
+            Face</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;">
+        <small>Date & Time will be saved by server on registration.</small>
+      </div>
+    </form>
+  </main>
+
+  <script src="{% static 'js/registration.js' %}"></script>
+</body>
+
+</html>
